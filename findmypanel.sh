@@ -1,3 +1,4 @@
+wget https://github.com/EvantheGrump2/findmypanel/blob/main/iplist.txt
 rm output.html 2> /dev/null
 echo '<html><body>' > output.html
 for tests in google.com yahoo.com duckduckgo.com
