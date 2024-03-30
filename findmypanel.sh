@@ -6,13 +6,13 @@ for tests in google.com yahoo.com duckduckgo.com
   do
 	if curl -m 1 -Is $tests >/dev/null
 	 then
-		echo 'sanity ping ('$tests') - connected'
+		echo '\e[1;37msanity ping ('$tests') - \e[1;32mconnected'
 	 else
-		echo 'sanity ping ('$tests') - failure!'
-		echo 'Are you connected to the internet?'
+		echo '\e[1;33msanity ping ('$tests') - \e[1;31mfailure!'
+		echo '\e[1;33mAre you connected to the internet?\033[0m'
 		read -r -p "Continue anyway? {y/N} " response
 		case "$response" in
-		[yY][eE][sS]|[yY])
+		[yY][eE][sS]|[yY]) 
 		\
 		;;
 		*)
@@ -22,24 +22,22 @@ for tests in google.com yahoo.com duckduckgo.com
 		esac
 	fi
   done
-echo 'check complete, starting scanning'
+echo '\e[1;37mcheck complete, starting scanning'
 for ips in $(cat iplist.txt)
   do
 	if curl -m 1 -Is $ips >/dev/null
 	 then
-		echo -n ''$ips' - success     \r'
+		echo -n '\e[1;37m'$ips' -  \e[1;32msuccess     \r'
  		echo '<a href="https://'$ips'" target="_blank">'$ips'</a>' >> output.html
 		echo '<a href="http://'$ips'" target="_blank">(http)</a><br>' >> output.html
 	 else
- 		echo -n ''$ips' - fail       \r'
+ 		echo -n '\e[1;37m'$ips' - \e[1;31mfail       \r'
 	fi
   done
-echo 'Done ✓                         '
-echo 'opening report'
-if grep -q "1" "output.html"
+echo '\e[1;37mDone \e[1;32m✓                         '
+echo '\e[1;37mopening report'
+if grep -q "<html><body>" "output.html"
   then
-	echo hi > /dev/null
-  else
         echo 'no hits ):' >> output.html
 fi
 xdg-open output.html > /dev/null
