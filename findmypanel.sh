@@ -4,7 +4,7 @@ rm output.html 2> /dev/null
 echo '<html><body>' > output.html
 for tests in google.com yahoo.com duckduckgo.com
   do
-	if curl -m 1 -Is $tests >/dev/null
+	if curl -m 3 -Is $tests >/dev/null
 	 then
 		echo 'sanity ping ('$tests') - connected'
 	 else
